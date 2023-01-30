@@ -1,0 +1,3 @@
+# JSON2M3U - Exclude possible input/output files
+./json2m3u/*.txt
+./json2m3u/*.m3u
