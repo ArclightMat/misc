@@ -129,17 +129,17 @@ For filesystems, only btrfs-progs is really required, others are for convenience
 
 3. Enroll created keys alongside Microsoft's keys: `sbctl enroll-keys -m`
 
-4. Sign files listed in `sbctl verify`.
+4. Sign files listed in `sbctl verify` using `sbctl sign-all`.
 
 5. Enable `systemd-boot-update.service`, put signed files in systemd folder with `sbctl sign -s -o /usr/lib/systemd/boot/efi/systemd-bootx64.efi.signed /usr/lib/systemd/boot/efi/systemd-bootx64.efi`
 
 6. Reboot and check if it is working with `sbctl status`.
 
-### Automatic LUKS decrypt with TPM2
+### Automatic LUKS decrypt with TPM2 (Requires Secure Boot)
 
 1. Install `tpm2-tss`.
 
 2. Get the path for the tpm2 device with `systemd-cryptenroll --tpm2-device=list`.
 
-3. Enroll a new key and tie it to the system's firmware and Secure Boot state: `systemd-cryptenroll --tpm2-device=/path/to/tpm2_device --tpm2-pcrs=0+7 /dev/sdX`
+3. Enroll a new key and tie it to the Secure Boot state: `systemd-cryptenroll --tpm2-device=/path/to/tpm2_device /dev/sdX`
 
