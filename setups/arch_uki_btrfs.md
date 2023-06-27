@@ -40,6 +40,7 @@ Documentation written to get Arch booting with UKI, using an encrypted BTRFS aut
 
 The following setup was designed considering a personal machine, which shouldn't be running anything worthwhile in /srv or using /root.
 Otherwise, follow OpenSUSE's layout instead.
+Swap is documented below for convenience, zram can be used instead.
 
 Create subvolumes for root, home, swapfile and var, and a snapshot subvolume for root.
   - `/` -> `@root`
@@ -125,15 +126,16 @@ For filesystems, only btrfs-progs is really required, others are for convenience
 
 1. Install `sbctl`. Make sure to enable Secure Boot and enable Setup Mode.
 
-2. Create keys with `sbctl create`.
+2. Create keys with `sbctl create-keys`.
 
 3. Enroll created keys alongside Microsoft's keys: `sbctl enroll-keys -m`
 
 4. Sign files listed in `sbctl verify` using `sbctl sign-all`.
+    - Check with `sbctl verify` again, if it failed, sign each file manually with `sbctl sign /path/to/file`
 
-5. Enable `systemd-boot-update.service`, put signed files in systemd folder with `sbctl sign -s -o /usr/lib/systemd/boot/efi/systemd-bootx64.efi.signed /usr/lib/systemd/boot/efi/systemd-bootx64.efi`
+6. Enable `systemd-boot-update.service`, put signed files in systemd folder with `sbctl sign -s -o /usr/lib/systemd/boot/efi/systemd-bootx64.efi.signed /usr/lib/systemd/boot/efi/systemd-bootx64.efi`
 
-6. Reboot and check if it is working with `sbctl status`.
+7. Reboot and check if it is working with `sbctl status`.
 
 ### Automatic LUKS decrypt with TPM2 (Requires Secure Boot)
 
