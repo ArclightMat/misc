@@ -89,7 +89,7 @@ For filesystems, only btrfs-progs is really required, others are for convenience
 
 7. Set keymap with `echo "KEYMAP=br-abnt2" >> /etc/vconsole.conf`
 
-8. Set hostname in `/etc/hostname`.
+8. Set hostname with `echo "$(HOSTNAME)" >> /etc/hostname`.
 
 9. Set root password with `passwd`.
 
@@ -106,9 +106,9 @@ For filesystems, only btrfs-progs is really required, others are for convenience
     - Baseline parameters: `rw quiet rootflags=subvol=@root`
         - `rootflags` can be removed if `btrfs subvolume set-default` was run before.
 
-13. Run `mkinitcpio -P` to regenerate the images.
+13. Install systemd-bootloader with `bootctl install`.
 
-14. Install systemd-bootloader with `bootctl install`.
+14. Run `mkinitcpio -P` to regenerate the images.
 
 15. Reboot and check it everything works.
 
